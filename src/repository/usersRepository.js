@@ -1,7 +1,7 @@
 const User=require("../schema/usersSchema.js");
-class UserRepository
-{
-    async  findUser(pararameter)
+
+
+    async function  findUser(pararameter)
     {
         try{
         const response=await User.findOne({...pararameter});
@@ -13,7 +13,7 @@ class UserRepository
     }
 
 }
-async createUser(userDetails)
+async  function createUser(userDetails)
 {
 try{
     const response =await User.create(userDetails);
@@ -23,5 +23,7 @@ console.log(error);
 
 }
 }
-}
-module.exports=UserRepository;
+
+module.exports={
+    findUser,createUser
+};

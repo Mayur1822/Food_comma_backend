@@ -1,9 +1,7 @@
-const UserService=require("../service/usersService.js");
-const UserRepository=require("../repository/usersRepository.js");
-const userService=new UserService(new UserRepository())
+const registerUser=require("../service/usersService.js");
 async function createUser (req,res){
     try{
-        const response=await userService.registerUser(req.body);
+        const response=await registerUser(req.body);
         return res.status(201).json({
             success:true,
             message:"user registered successfully",
@@ -14,11 +12,14 @@ async function createUser (req,res){
 
 
     }catch(error){
+       
+        
         return res.status(error.statusCode).json({
         success:false,
         message : error.reason,
         data:{},
         error:error
+
 
         })
     }

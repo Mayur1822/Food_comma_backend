@@ -1,12 +1,8 @@
-class UserService{
-    constructor(_userRepository)
-    {
-        this.userRepository=_userRepository;
 
-    }
-    async registerUser(userDetails)
+const {findUser,createUser}=require("../repository/usersRepository.js")
+    async function registerUser(userDetails)
         {
-            const user=await this.userRepository.findUser({
+            const user=await  findUser({
                 email:userDetails.email,
                 mobileNumber:userDetails.mobileNumber
             });
@@ -16,7 +12,7 @@ class UserService{
                     statusCode:400
                 }
             }
-            const response=await this.userRepository.createUser(userDetails);
+            const response=await  createUser(userDetails);
             if(!response)
             {
                 throw{
@@ -26,6 +22,6 @@ class UserService{
             }
             return response;
          }    
-}
 
-module.exports=UserService;
+
+module.exports=registerUser;
