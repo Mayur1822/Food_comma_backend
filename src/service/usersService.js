@@ -1,5 +1,8 @@
-
-const {findUser,createUser}=require("../repository/usersRepository.js")
+const jwt =require("jsonwebtoken");
+const crypto=require("crypto");
+const {ACCESS_TOKEN_SECRET,ACCESS_TOKEN_EXPIRE,
+    REFRESH_TOKEN_SECRET,REFRESH_TOKEN_EXPIRE}=require("../config/serverConfig.js")
+const {findUser,createUser,updateUser}=require("../repository/usersRepository.js")
     async function registerUser(userDetails)
         {
             const user=await  findUser({
@@ -20,7 +23,23 @@ const {findUser,createUser}=require("../repository/usersRepository.js")
                     statusCode:500
                 }
             }
-            return response;
+            const accessToken=jwt.sign({id:response._id,email:userDetails.email},
+                ACCESS_TOKEN_SECRET,{expiresIn:ACCESS_TOKEN_EXPIRE}
+            )
+            const refreshToken=jwt.sign({id:response._id,email:userDetails.email},
+                REFRESH_TOKEN_SECRET,{expiresIn:REFRESH_TOKEN_EXPIRE}
+            )
+            const hashedRefreshToken=crypto.createHash("sha256")
+                                            .update(refreshToken)
+                                            .digest("hex");
+           const updatedUser= await updateUser(response._id,hashedRefreshToken);
+
+
+
+
+            
+            return{response,accessToken,refreshToken};
+
          }    
 
 

@@ -39,6 +39,11 @@ const usersSchema=new mongoose.Schema({
         required:[true,"password must be provided"],
         minlength:[8,"password must have atleast 8 or more character"],
          
+    },
+    refreshToken:{
+        type:String,
+        default:null,
+        required:false
     }
 },{timestamps:true});
 usersSchema.pre('save',async function(){

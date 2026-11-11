@@ -1,7 +1,7 @@
 const jwt =require("jsonwebtoken");
-const{JWT_SECRET}=require("../config/serverConfig.js");
+const{ACCESS_TOKEN_SECRET}=require("../config/serverConfig.js");
 async function isloggedin(req,res,next){
-    const token =req.cookies.authToken;
+    const token =req.cookies.accessToken;
     if(!token)
     {
         return res .status(401).json({
@@ -12,7 +12,7 @@ async function isloggedin(req,res,next){
 
         })
     }
-    const decoded=jwt.verify(token,JWT_SECRET);
+    const decoded=jwt.verify(token,ACCESS_TOKEN_SECRET);
     if(!decoded){
         return res.status(401).json({
             success:false,
@@ -22,7 +22,7 @@ async function isloggedin(req,res,next){
         })
     }
 req.user={email:decoded.email,
-         id:decoded._id
+         id:decoded.id
 
 }
 
