@@ -44,6 +44,14 @@ const usersSchema=new mongoose.Schema({
         type:String,
         default:null,
         required:false
+    },
+    resetPasswordToken:{
+        type:String,
+        default:null
+    },
+    resetPasswordTokenExpiry:{
+        type:Date,
+        default:null
     }
 },{timestamps:true});
 usersSchema.pre('save',async function(){
@@ -54,3 +62,4 @@ usersSchema.pre('save',async function(){
 });
 const User= mongoose.model("User",usersSchema);
 module.exports=User;
+

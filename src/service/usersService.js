@@ -32,7 +32,7 @@ const {findUser,createUser,updateUser}=require("../repository/usersRepository.js
             const hashedRefreshToken=crypto.createHash("sha256")
                                             .update(refreshToken)
                                             .digest("hex");
-           const updatedUser= await updateUser(response._id,hashedRefreshToken);
+           const updatedUser= await updateUser(response._id,{refreshToken:hashedRefreshToken});
 
 
 

@@ -31,7 +31,7 @@ const accessToken=jwt.sign({email:user.email,id:user._id},ACCESS_TOKEN_SECRET,
 const hashedRefreshToken=crypto.createHash("sha256")
                                .update(refreshToken)
                                .digest("hex");
-const userUpdate=await updateUser(user._id,hashedRefreshToken)
+const userUpdate=await updateUser(user._id,{refreshToken:hashedRefreshToken})
 
 return{refreshToken,accessToken}
 }

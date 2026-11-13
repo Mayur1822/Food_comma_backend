@@ -1,4 +1,5 @@
-const {loginUser:loginUserService,logoutUser:logoutUserService}=require("../service/authService.js");
+const {loginUser:loginUserService,logoutUser:logoutUserService,
+  forgetPassword:forgetPasswordService,resetPassword:resetPasswordService}=require("../service/authService.js");
 async function loginUser(req,res)
 {
   try{
@@ -69,4 +70,51 @@ return res.status(error.statusCode||500).json({
 }) 
  }
 }
-module.exports={loginUser,logoutUser};
+async function forgetPassword(req,res){
+  try{
+    await forgetPasswordService(req.body.email)
+    return res .status(200).json({
+      success:true,
+      message:"resetPasswordToken  send successfully in email",
+      data:{},
+      error:{}
+    })
+  }catch(error){
+    
+    console.log(error);
+    
+    
+    return res.status(error.statusCode||500).json({
+      success:false,
+      message:error.reason||"something went wrong try again later",
+      data:{},
+      error:error
+    });
+    
+  }
+}
+async function resetPassword(req,res){
+  try{
+    await resetPasswordService(req.body);
+  return res.status(200).json({
+    success:true,
+    message:"password changed successfully",
+    data:{},
+    error:{}
+
+  });
+
+  }catch(error){
+    console.log(error);
+    res.status(error.statusCode||500).json({
+      success:false,
+      message:error.reason||"something went wrong try again later",
+      data:{},
+      error:error
+    })
+    
+    
+  }
+  
+}
+module.exports={loginUser,logoutUser,forgetPassword,resetPassword};

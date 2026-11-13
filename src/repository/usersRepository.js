@@ -24,11 +24,11 @@ console.log(error);
 
 }
 }
-async function updateUser(id,pararameter)
+async function updateUser(id,updateuser)
 
 {
     try{
-        const response=await User.findByIdAndUpdate(id,{refreshToken:pararameter},{new:true});
+        const response=await User.findByIdAndUpdate(id,{$set:updateuser},{new:true});
         return response;
     }catch(error)
     {
