@@ -1,6 +1,7 @@
 const express=require("express");
 const cookieParser=require("cookie-parser")
 const morgan =require("morgan");
+const uploads=require("./config/multerConfig.js")
 
 const usersRouter=require("./routes/usersRoute.js");
 const authRouter=require("./routes/authRoute.js");
@@ -25,6 +26,14 @@ app.get("/ping",isloggedin,(req,res)=>{
         message:"welcome to ping route"
     });
 });
+app.post("/photos",uploads.single("img1"),(req,res)=>{
+    console.log(req.file.path);
+    return res.status(200).json({
+        message:"file uploaded success fully"
+    });
+    
+})
+
 
 app.all("/*splat",(req,res)=>{
     return res.status(404).json({
