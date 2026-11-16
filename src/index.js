@@ -2,7 +2,7 @@ const express=require("express");
 const cookieParser=require("cookie-parser")
 const morgan =require("morgan");
 const uploads=require("./config/multerConfig.js")
-
+const productRouter=require("./routes/productRoute.js")
 const usersRouter=require("./routes/usersRoute.js");
 const authRouter=require("./routes/authRoute.js");
 const cartsRouter=require("./routes/cartsRouter.js");
@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use("/users",usersRouter);
 app.use("/carts",cartsRouter);
 app.use("/auth",authRouter);
+app.use("/products",productRouter)
 app.get("/ping",isloggedin,(req,res)=>{
     console.log(req.cookies);
     

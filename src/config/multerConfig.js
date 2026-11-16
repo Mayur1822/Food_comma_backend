@@ -1,16 +1,10 @@
 const multer=require("multer");
-const{CloudinaryStorage}=require("multer-storage-cloudinary");
-const cloudinary=require("./cloudinaryConfig.js");
 const path=require("path")
-const storageConfiguration=new CloudinaryStorage({
-    cloudinary,
-    params:{
-        folder:"pizza_app",
-        formate:["jpeg","jpg","png"],
-        public_id:(req,file)=>{
-        return `${Date.now()}--${path.extname(file.originalname)}`      
-        }
+const storageConfiguration=multer.memoryStorage();
+const uploads=multer({
+    storage:storageConfiguration,
+    limits:{
+        fileSize:20*1024*1024
     }
-});
-const uploads=multer({storage:storageConfiguration});
+})
 module.exports=uploads;
