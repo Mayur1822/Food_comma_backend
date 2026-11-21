@@ -10,6 +10,7 @@ async function createProduct(productDetails,imageFile){
         productName:productDetails.productName,
         description:productDetails.description,
         price:productDetails.price,
+        
         productImage:"image is in the processing"
     
         })

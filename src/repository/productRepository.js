@@ -12,16 +12,15 @@ async function createProduct(productDetails)
         return response;
     }catch(error){
        console.log(error);
-        if(error.name==='ValidationError'){
+
+
+       if(error.name==='ValidationError'){
             const invalidParamsMessage=Object.keys(error.errors).map(property=>{
              return error.errors[property].message
             })
             throw new badRequestError(invalidParamsMessage);
         }
-        else if(!productDetails){
-            throw new badRequestError();
-        }
-        throw new internalServerError();
+                throw new internalServerError();
                       
     }
 }

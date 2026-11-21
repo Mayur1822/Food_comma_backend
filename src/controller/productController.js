@@ -15,12 +15,21 @@ async function createProduct(req,res){
         error:{}
        })
        
-             
+            
     }catch(error){
      console.log(error);
-     return res.status(error.statusCode||500).json({
+     if(error instanceof AppError) {
+     return res.status(error.statusCode).json({
         success:false,
-        message:error.message||"something went wrong try again later",
+        message:error.message,
+        data:{},
+        error:error
+     })
+      
+     }
+     return res.status(500).json({
+        success:false,
+        message:"something went wrong try again later",
         data:{},
         error:error
      })
@@ -41,14 +50,24 @@ async function findProductById(req,res){
 
 
    }catch(error){
-   //  console.log(Object.keys(error));
-    return res.status(error.statusCode||500).json({
-      success:false,
-      message:error.message|| "internal server error"                                             ||"internal server error",
-      data:{},
-      error:error
-    })
-   }
+     console.log(error);
+     if(error instanceof AppError) {
+     return res.status(error.statusCode).json({
+        success:false,
+        message:error.message,
+        data:{},
+        error:error
+     })
+      
+     }
+     return res.status(500).json({
+        success:false,
+        message:"something went wrong try again later",
+        data:{},
+        error:error
+     })
+     
+    }
 }
 async function  updateProductById(req,res){
    try{
@@ -60,15 +79,24 @@ async function  updateProductById(req,res){
         error:{}
       })
 }catch(error){
-console.log(req.body)
-return res.status(error.statusCode||500).json({
-success:false,
-message:error.message||"internal server error",
-data:{},
-error:error
-
-})
-}
+     console.log(error);
+     if(error instanceof AppError) {
+     return res.status(error.statusCode).json({
+        success:false,
+        message:error.message,
+        data:{},
+        error:error
+     })
+      
+     }
+     return res.status(500).json({
+        success:false,
+        message:"something went wrong try again later",
+        data:{},
+        error:error
+     })
+     
+    }
 }
 async function deleteProductById(req,res){
 try{
@@ -81,14 +109,24 @@ try{
      }) 
 
 }catch(error){
-return res.status(error.statusCode||500).json({
-   success:false,
-   message:error.message||"internal server error",
-   data:{},
-   error:error
-})
-
-}   
+     console.log(error);
+     if(error instanceof AppError) {
+     return res.status(error.statusCode).json({
+        success:false,
+        message:error.message,
+        data:{},
+        error:error
+     })
+      
+     }
+     return res.status(500).json({
+        success:false,
+        message:"something went wrong try again later",
+        data:{},
+        error:error
+     })
+     
+    }   
 }
 
 
