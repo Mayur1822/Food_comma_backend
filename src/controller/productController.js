@@ -1,11 +1,10 @@
-const { result } = require("lodash");
 const{createProduct:createProductService,
-   findProduct:findProductService
+   findProductById:findProductServiceById
 }=require("../service/productService.js");
 async function createProduct(req,res){
     try{
       
-       const response=await createProductService(req.body,req.file.buffer)
+       const response=await createProductService(req.body,req.file?.buffer)
         res.status(201).json({
         success:true,
         message:"Product created successfully",
@@ -25,7 +24,7 @@ async function createProduct(req,res){
      
     }
 }
-async function findProduct(req,res){
+async function findProductById(req,res){
    try{
       console.log(req.params.id);
       
@@ -50,5 +49,5 @@ async function findProduct(req,res){
 }
 module.exports={
 createProduct,
-findProduct
+findProductById
 }
