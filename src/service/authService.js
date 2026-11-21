@@ -4,7 +4,7 @@ const jwt =require("jsonwebtoken");
 const {ACCESS_TOKEN_EXPIRE,ACCESS_TOKEN_SECRET}=require("../config/serverConfig.js");
 const {REFRESH_TOKEN_EXPIRE,REFRESH_TOKEN_SECRET}=require("../config/serverConfig.js");
 const crypto =require("crypto");
-const {sendEmail}=require("../urtils/sendEmail.js");
+const {sendEmail}=require("../utils/sendEmail.js");
 
 async function loginUser(userDetails)
 {
